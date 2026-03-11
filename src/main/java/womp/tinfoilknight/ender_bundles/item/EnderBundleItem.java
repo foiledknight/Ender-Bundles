@@ -12,11 +12,12 @@ import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import womp.tinfoilknight.ender_bundles.EnderBundles;
 import womp.tinfoilknight.ender_bundles.components.ItemPlayer;
+
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -48,14 +49,13 @@ public class EnderBundleItem extends Item {
         return InteractionResult.SUCCESS;
     }
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, TooltipContext context, @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder, @NotNull TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         String playerText;
         if (stack.has(EnderBundles.ITEM_PLAYER.get())) {
-            playerText = context.level().getPlayerByUUID(stack.get(EnderBundles.ITEM_PLAYER.get()).player()).nameAndId().name();
-        }
-        else {
+            playerText = context.level().getPlayerByUUID(stack.get(EnderBundles.ITEM_PLAYER.get()).player()).getName().getString();
+        } else {
             playerText = "None";
         }
-        tooltipAdder.accept(Component.translatable(playerComponent, playerText).withStyle(ChatFormatting.DARK_PURPLE));
+        tooltipComponents.add(Component.translatable(playerComponent, playerText).withStyle(ChatFormatting.DARK_PURPLE));
     }
 }

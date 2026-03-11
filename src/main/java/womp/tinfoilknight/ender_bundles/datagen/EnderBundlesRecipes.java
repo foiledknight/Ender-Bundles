@@ -5,7 +5,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
@@ -27,19 +27,17 @@ public class EnderBundlesRecipes extends RecipeProvider {
     }
 
     public static class Runner extends RecipeProvider.Runner {
-        // Get the parameters from the `GatherDataEvent`s.
         public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(output, lookupProvider);
         }
-
         @Override
-        protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.@NotNull Provider provider, @NotNull RecipeOutput output) {
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
             return new EnderBundlesRecipes(provider, output);
         }
 
         @Override
-        public @NotNull String getName() {
-            return "Recipes - " + EnderBundles.MODID;
+        public String getName() {
+            return "Ender Bundles - Recipes";
         }
     }
 }
