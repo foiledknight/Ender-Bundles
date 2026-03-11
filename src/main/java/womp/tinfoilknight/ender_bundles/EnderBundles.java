@@ -4,6 +4,8 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -72,7 +74,7 @@ public class EnderBundles
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
         @SubscribeEvent
-        public static void gatherData(GatherDataEvent.Client event) {
+        public static void gatherData(GatherDataEvent event) {
             event.createProvider(EnderBundlesLanguageEN_US::new);
             event.createProvider(EnderBundlesItemBlockModels::new);
             event.createProvider(EnderBundlesRecipes.Runner::new);
