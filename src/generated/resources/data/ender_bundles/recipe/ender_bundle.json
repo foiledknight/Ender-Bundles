@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "#minecraft:bundles",
+    "C": "minecraft:ender_chest",
+    "E": "minecraft:ender_eye",
+    "O": "minecraft:obsidian"
+  },
+  "pattern": [
+    " E ",
+    "OCO",
+    " B "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ender_bundles:ender_bundle"
+  }
+}

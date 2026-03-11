@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ender_bundles:ender_bundle",
+    "minecraft:ender_eye"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ender_bundles:ender_bundle"
+  }
+}
