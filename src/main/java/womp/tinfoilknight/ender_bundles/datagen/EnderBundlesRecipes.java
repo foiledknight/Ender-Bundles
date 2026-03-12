@@ -5,7 +5,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +14,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class EnderBundlesRecipes extends RecipeProvider {
 
-    // Construct the provider to run
     protected EnderBundlesRecipes(HolderLookup.Provider provider, RecipeOutput output) {
         super(provider, output);
     }
@@ -30,14 +28,15 @@ public class EnderBundlesRecipes extends RecipeProvider {
         public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(output, lookupProvider);
         }
+
         @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
+        protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.@NotNull Provider provider, @NotNull RecipeOutput output) {
             return new EnderBundlesRecipes(provider, output);
         }
 
         @Override
-        public String getName() {
-            return "Ender Bundles - Recipes";
+        public @NotNull String getName() {
+            return "Recipes - " + EnderBundles.MODID;
         }
     }
 }

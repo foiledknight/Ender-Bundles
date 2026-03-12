@@ -48,6 +48,7 @@ public class EnderBundleItem extends Item {
         player.awardStat(Stats.OPEN_ENDERCHEST);
         return InteractionResult.SUCCESS;
     }
+
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         String playerText;

@@ -2,11 +2,8 @@ package womp.tinfoilknight.ender_bundles;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -18,7 +15,6 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -26,12 +22,11 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import womp.tinfoilknight.ender_bundles.components.ItemPlayer;
-import womp.tinfoilknight.ender_bundles.datagen.EnderBundlesItemModels;
+import womp.tinfoilknight.ender_bundles.datagen.EnderBundlesItemBlockModels;
 import womp.tinfoilknight.ender_bundles.datagen.EnderBundlesLanguageEN_US;
 import womp.tinfoilknight.ender_bundles.datagen.EnderBundlesRecipes;
 import womp.tinfoilknight.ender_bundles.item.EnderBundleItem;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 @Mod(EnderBundles.MODID)
@@ -78,23 +73,9 @@ public class EnderBundles
         }
         @SubscribeEvent
         public static void gatherData(GatherDataEvent event) {
-            DataGenerator generator = event.getGenerator();
-            PackOutput output = generator.getPackOutput();
-            ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-            CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-
-            generator.addProvider(
-                    event.includeClient(),
-                    new EnderBundlesItemModels(output, existingFileHelper)
-            );
-            generator.addProvider(
-                    event.includeClient(),
-                    new EnderBundlesLanguageEN_US(output)
-            );
-            generator.addProvider(
-                    event.includeClient(),
-                    new EnderBundlesRecipes.Runner(output, lookupProvider)
-            );
+            event.createProvider(EnderBundlesLanguageEN_US::new);
+            event.createProvider(EnderBundlesItemBlockModels::new);
+            event.createProvider(EnderBundlesRecipes.Runner::new);
         }
     }
 }
