@@ -2,8 +2,8 @@ package womp.tinfoilknight.ender_bundles.components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
 import java.util.UUID;
@@ -14,7 +14,7 @@ public record ItemPlayer(UUID player) {
                     UUIDUtil.CODEC.fieldOf("player").forGetter(ItemPlayer::player)
             ).apply(instance, ItemPlayer::new)
     );
-    public static final StreamCodec<ByteBuf, ItemPlayer> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<FriendlyByteBuf, ItemPlayer> STREAM_CODEC = StreamCodec.composite(
             UUIDUtil.STREAM_CODEC, ItemPlayer::player,
             ItemPlayer::new
     );

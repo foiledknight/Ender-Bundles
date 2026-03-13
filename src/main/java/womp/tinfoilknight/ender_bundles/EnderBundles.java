@@ -47,8 +47,7 @@ public class EnderBundles
                     .networkSynchronized(ItemPlayer.STREAM_CODEC)
     );
 
-    public EnderBundles(IEventBus modEventBus, ModContainer modContainer)
-    {
+    public EnderBundles(IEventBus modEventBus, ModContainer modContainer) {
         ITEMS.register(modEventBus);
         DATA_COMPONENTS.register(modEventBus);
         modEventBus.addListener(this::addCreative);
@@ -72,7 +71,7 @@ public class EnderBundles
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
         @SubscribeEvent
-        public static void gatherData(GatherDataEvent event) {
+        public static void gatherData(GatherDataEvent.Client event) {
             event.createProvider(EnderBundlesLanguageEN_US::new);
             event.createProvider(EnderBundlesItemBlockModels::new);
             event.createProvider(EnderBundlesRecipes.Runner::new);
