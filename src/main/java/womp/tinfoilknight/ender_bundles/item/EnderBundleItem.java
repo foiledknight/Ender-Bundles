@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import womp.tinfoilknight.ender_bundles.EnderBundles;
@@ -50,13 +51,13 @@ public class EnderBundleItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
         String playerText;
         if (stack.has(EnderBundles.ITEM_PLAYER.get())) {
             playerText = context.level().getPlayerByUUID(stack.get(EnderBundles.ITEM_PLAYER.get()).player()).getName().getString();
         } else {
             playerText = "None";
         }
-        tooltipComponents.add(Component.translatable(playerComponent, playerText).withStyle(ChatFormatting.DARK_PURPLE));
+        tooltipAdder.accept(Component.translatable(playerComponent, playerText).withStyle(ChatFormatting.DARK_PURPLE));
     }
 }
