@@ -1,6 +1,7 @@
 package womp.tinfoilknight.ender_bundles.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -21,16 +22,21 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public class EnderBundleItem extends Item {
-    private final Component containerTitle;
     public static String playerComponent = "item." + EnderBundles.MODID + ".ender_bundle.tooltip";
     public EnderBundleItem(Properties properties) {
         super(properties);
-        this.containerTitle = getName();
     }
 
     @Override
     public @NotNull InteractionResult use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+        Component containerTitle;
+        if (stack.getCustomName() != null){
+            containerTitle = stack.getCustomName().plainCopy();
+        }
+        else {
+            containerTitle = stack.getItemName().plainCopy();
+        }
         if (!stack.has(EnderBundles.ITEM_PLAYER.get())){
             stack.set(EnderBundles.ITEM_PLAYER.get(), new ItemPlayer(player.getUUID()));
         }
